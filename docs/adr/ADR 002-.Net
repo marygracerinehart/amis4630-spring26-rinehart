@@ -1,0 +1,21 @@
+# ADR-002: .NET
+
+## Date: 2026-02-15
+
+## Status: Accepted
+
+## Context
+We need a backend framework for Buckeye Marketplace, an Ohio State-themed e-commerce platform application.
+We need the backend to hold the business logic. It will be needed for user authentification and authorization, 
+processing cart and checkout request, and managing product inventory. Our team has familiarity in Java and object
+oriented programming. We need a backend framework that will integrate wiell with frontend framework, like React.
+
+## Decision
+We will use .NET as our backend framework. We will use C# as our programming language. 
+
+## Consequences 
+There will be a learning curve but C# and .NET are similar to Java making the transition easier
+for our team. C# catches errors at compile time resulting in fewer problems in production. .NET
+provides built-in database access allowing the team to write code in C#, not SQL. .NET has excellent
+performance and scalability. It is used by Fortune 500 companies and proven at massive scale. It is backed
+by Microsoft and allows for seamless deployment to Azure.
