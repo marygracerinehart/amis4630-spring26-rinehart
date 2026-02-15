@@ -2,7 +2,7 @@
 ## Feature: Product Catalog
 Buckeye Marketplace
 
-This applied Atomic Design principle to the Product Catalog feature for Buckeye Marketplace
+Atomic Design principle applied to Product Catalog feature for Buckeye Marketplace
 
 ## Atoms
 - Button
