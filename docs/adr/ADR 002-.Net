@@ -19,3 +19,12 @@ for our team. C# catches errors at compile time resulting in fewer problems in p
 provides built-in database access allowing the team to write code in C#, not SQL. .NET has excellent
 performance and scalability. It is used by Fortune 500 companies and proven at massive scale. It is backed
 by Microsoft and allows for seamless deployment to Azure.
+
+## AI usage
+Use ChatGPT and Claude to understand more information on .NET and why it is useful for this project. Uploaded Milestone 1 information and asked AI to write an ADR for Buckeye Marketplace with the structure of:
+Title
+Date
+Status
+Context
+Decision
+Consequences
