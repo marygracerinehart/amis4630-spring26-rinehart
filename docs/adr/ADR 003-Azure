@@ -1,0 +1,19 @@
+# ADR-002: Azure
+
+## Date: 2026-02-15
+
+## Status: Accepted
+
+## Context
+We need a cloud hosting paltform for Buckeye Marketplace, an Ohio State-themed e-commerce application.
+The platform must support hosting a React front and a .NET backend. We also need the platform
+to be scalable for growth.
+
+## Decision
+We will use Microsoft Azure as our cloud hosting platform. 
+
+## Consequences 
+Azure has strong integration with .NET applications. It allows for one-click deployment from Visual Studio.
+With built in scalability the application will be able to handle growth. It allows for an all in one platform 
+for hosting, database, authentification, and monitoring all in the same place emliminating the need for multiple 
+vendors. With a strong enterprise presence and the #2 cloud provider it is a good learning investment. 
