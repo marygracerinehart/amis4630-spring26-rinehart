@@ -1,0 +1,35 @@
+# Atomic Design Component Hirarchy
+## Feature: Product Catalog
+Buckeye Marketplace
+
+This applied Atomic Design principle to the Product Catalog feature for Buckeye Marketplace
+
+## Atoms
+- Button
+- Icon (Search, Heart, Star, Cart)
+- Text Input
+- Dropdown
+- Checkbock
+- Product Image
+- Price Text
+- Rating Text
+- Label Text
+- Product Title Text
+
+
+## Molecules
+- Search bar (text input + search icon)
+- Rating Display (star icon + rating text)
+- Wishlist button (button + heart icon)
+- Filter Option (Dropdown + Checkbox)
+- Product Info (Product Image + Product Title Text + Price Text + Rating text)
+- Cart button (button + cart icon)
+
+## Organisms
+- Filter Panel
+- Product Card Quick View
+- Product Grid Catalog
+- Page Header 
+
+## Templates
+- BuckeyeMarketplace HomePage, Product Search Page
