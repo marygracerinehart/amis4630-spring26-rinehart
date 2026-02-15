@@ -19,3 +19,13 @@ Our team has used GitHub before and it is an industry standard so it is a critic
 strong collaboration tools. It also has seamless integration with Azure for automated deployments. There is a large
 ecosystem and community support in GitHub. GitHub also has the ability to utilize artificial intelligent thought GitHub
 CoPilot for Ai coding assistant, which should help to accelerate developement. 
+
+## AI Usage
+Use ChatGPT and Claude to understand more information on GitHub and why it is useful for this project. Uploaded Milestone 1 information and asked AI to write an ADR for Buckeye Marketplace with the structure of:
+Title
+Date
+Status
+Context
+Decision
+Consequences
+
