@@ -1,0 +1,21 @@
+# ADR-004: GitHub
+
+## Date: 2026-02-15
+
+## Status: Accepted
+
+## Context
+We need a version control and collaboration platform for Buckeye Marketplace, an Ohio State-themed e-commerce
+application. The platform must source code version control for React frontenf and .Net backend. It must have
+issue tracking and project management features. It also must allow for collaboration between student and professor
+to help student stay on track throughout the course of the project. We also want a widely adopted platform and a platform
+that allows for AI usage and guidance. Our team has little experience with GitHub.
+
+## Decision
+We will use GitHub as our version control and collaboration platform. 
+
+## Consequences 
+Our team has used GitHub before and it is an industry standard so it is a critical skill to develop. GitHub has
+strong collaboration tools. It also has seamless integration with Azure for automated deployments. There is a large
+ecosystem and community support in GitHub. GitHub also has the ability to utilize artificial intelligent thought GitHub
+CoPilot for Ai coding assistant, which should help to accelerate developement. 
