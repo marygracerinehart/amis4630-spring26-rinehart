@@ -12,49 +12,68 @@ public class EventsController : ControllerBase
         new Event
         {
             Id = 1,
-            Title = "Tech Conference 2025",
-            Date = "2025-06-15",
-            Location = "Seattle, WA",
-            Description = "Annual technology conference featuring the latest in software development, cloud computing, and AI.",
-            AvailableTickets = 150,
-            Price = 299
+            Title = "Ohio State Buckeyes Football vs. Penn State",
+            Date = "2026-10-24",
+            Location = "Ohio Stadium, Columbus, OH",
+            Description = "Big Ten showdown at The Horseshoe featuring Ohio State football under the lights.",
+            AvailableTickets = 120,
+            Price = 145
         },
         new Event
         {
             Id = 2,
-            Title = "React Summit",
-            Date = "2025-07-20",
-            Location = "New York, NY",
-            Description = "A deep-dive into modern React patterns, hooks, and performance optimization techniques.",
-            AvailableTickets = 80,
-            Price = 199
+            Title = "Ohio State Buckeyes Men's Basketball vs. Michigan",
+            Date = "2026-02-14",
+            Location = "Value City Arena, Columbus, OH",
+            Description = "Rivalry game in Columbus with conference implications and high-energy crowd support.",
+            AvailableTickets = 95,
+            Price = 85
         },
         new Event
         {
             Id = 3,
-            Title = "DevOps Days",
-            Date = "2025-08-05",
-            Location = "Austin, TX",
-            Description = "Explore CI/CD pipelines, containerization, and infrastructure-as-code best practices.",
-            AvailableTickets = 200,
-            Price = 149
+            Title = "OSU Symphony Orchestra: Winter Masterworks",
+            Date = "2026-01-31",
+            Location = "Mershon Auditorium, Columbus, OH",
+            Description = "The Ohio State University Symphony Orchestra performs a program of classical masterworks.",
+            AvailableTickets = 160,
+            Price = 30
+        },
+        new Event
+        {
+            Id = 4,
+            Title = "Columbus Crew vs. FC Cincinnati",
+            Date = "2026-05-09",
+            Location = "Lower.com Field, Columbus, OH",
+            Description = "High-stakes MLS matchup in downtown Columbus with one of the league's best atmospheres.",
+            AvailableTickets = 210,
+            Price = 55
+        },
+        new Event
+        {
+            Id = 5,
+            Title = "Summer Concert Night: Indie on the Scioto",
+            Date = "2026-07-18",
+            Location = "Scioto Mile, Columbus, OH",
+            Description = "Outdoor concert featuring regional indie and alternative artists along the downtown riverfront.",
+            AvailableTickets = 300,
+            Price = 40
+        },
+        new Event
+        {
+            Id = 6,
+            Title = "Columbus Food Truck Festival",
+            Date = "2026-06-21",
+            Location = "Columbus Commons, Columbus, OH",
+            Description = "A citywide favorite with dozens of local food trucks, live music, and family-friendly activities.",
+            AvailableTickets = 250,
+            Price = 20
         }
     };
 
     // GET api/events
-    [HttpGet]
-    public ActionResult<IEnumerable<Event>> GetEvents()
-    {
-        return Ok(_events);
-    }
+
 
     // GET api/events/{id}
-    [HttpGet("{id}")]
-    public ActionResult<Event> GetEvent(int id)
-    {
-        var ev = _events.FirstOrDefault(e => e.Id == id);
-        if (ev is null)
-            return NotFound();
-        return Ok(ev);
-    }
+
 }
