@@ -1,12 +1,4 @@
-export interface Event {
-    id: number;
-    title: string;
-    date: string;
-    location: string;
-    description: string;
-    availableTickets: number;
-    price: number;
-}
+import type { Event } from "../types/event";
 
 export const events: Event[] = [
     {
@@ -14,6 +6,7 @@ export const events: Event[] = [
         title: "Ohio State Buckeyes Football vs. Penn State",
         date: "2026-10-24",
         location: "Ohio Stadium, Columbus, OH",
+        category: "Sports",
         description:
             "Big Ten showdown at The Horseshoe featuring Ohio State football under the lights.",
         availableTickets: 120,
@@ -24,6 +17,7 @@ export const events: Event[] = [
         title: "Ohio State Buckeyes Men's Basketball vs. Michigan",
         date: "2026-02-14",
         location: "Value City Arena, Columbus, OH",
+        category: "Sports",
         description:
             "Rivalry game in Columbus with conference implications and high-energy crowd support.",
         availableTickets: 95,
@@ -34,6 +28,7 @@ export const events: Event[] = [
         title: "OSU Symphony Orchestra: Winter Masterworks",
         date: "2026-01-31",
         location: "Mershon Auditorium, Columbus, OH",
+        category: "Arts & Culture",
         description:
             "The Ohio State University Symphony Orchestra performs a program of classical masterworks.",
         availableTickets: 160,
@@ -44,6 +39,7 @@ export const events: Event[] = [
         title: "Columbus Crew vs. FC Cincinnati",
         date: "2026-05-09",
         location: "Lower.com Field, Columbus, OH",
+        category: "Sports",
         description:
             "High-stakes MLS matchup in downtown Columbus with one of the league's best atmospheres.",
         availableTickets: 210,
@@ -54,16 +50,18 @@ export const events: Event[] = [
         title: "Summer Concert Night: Indie on the Scioto",
         date: "2026-07-18",
         location: "Scioto Mile, Columbus, OH",
+        category: "Music",
         description:
             "Outdoor concert featuring regional indie and alternative artists along the downtown riverfront.",
         availableTickets: 300,
-        price: 40,
+        price: 0,
     },
     {
         id: 6,
         title: "Columbus Food Truck Festival",
         date: "2026-06-21",
         location: "Columbus Commons, Columbus, OH",
+        category: "Food & Beverage",
         description:
             "A citywide favorite with dozens of local food trucks, live music, and family-friendly activities.",
         availableTickets: 250,

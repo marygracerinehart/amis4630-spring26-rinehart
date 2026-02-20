@@ -72,8 +72,20 @@ public class EventsController : ControllerBase
     };
 
     // GET api/events
-
+    [HttpGet]
+    public IActionResult GetAllEvents()
+    {
+        return Ok(_events);
+    }
 
     // GET api/events/{id}
-
+    [HttpGet("{id}")]
+    public IActionResult GetEventById(int id)
+    {
+        var @event = _events.FirstOrDefault(e => e.Id == id);
+        if (@event == null)
+            return NotFound();
+        
+        return Ok(@event);
+    }
 }

@@ -1,10 +1,7 @@
-import { Event } from "../data/events";
+import { EventCard } from "./EventCard"; 
+import type { EventListProps } from "../types/event";
 
-interface EventListProps {
-  events: Event[];
-}
-
-export function EventList({ events }: EventListProps) {
+export function EventList({ events, onSelectEvent }: EventListProps) {
   if (!events || events.length === 0) {
     return <p>No events available.</p>;
   }
@@ -12,7 +9,13 @@ export function EventList({ events }: EventListProps) {
   return (
     <div className="event-list">
       {events.map((event) => (
-        <h2>{event.title}</h2>
+        <div
+          key={event.id}
+          onClick={() => onSelectEvent?.(event)}
+          style={{ cursor: onSelectEvent ? "pointer" : "default" }}
+        >
+          <EventCard event={event} />
+        </div>
       ))}
     </div>
   );

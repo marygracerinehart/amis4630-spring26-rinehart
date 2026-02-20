@@ -7,42 +7,120 @@
 .app h1 {
   text-align: center;
   margin-bottom: 2rem;
+  font-size: 2.5em;
+  background: linear-gradient(135deg, #61dafb, #646cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .event-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+.event-list > div {
+  height: 100%;
 }
 
 .event-card {
-  background: #1a1a2e;
-  border: 1px solid #333;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
   padding: 1.5rem;
   text-align: left;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.event-card h2 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+.event-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 20px 25px rgba(96, 165, 250, 0.15), 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.event-date,
-.event-location {
-  margin: 0.25rem 0;
-  color: #aaa;
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.event-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: #f1f5f9;
+  flex: 1;
+}
+
+.category-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.event-details {
+  margin-bottom: 1rem;
+}
+
+.event-details p {
+  margin: 0.5rem 0;
+  color: #cbd5e1;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.event-description {
-  margin: 0.75rem 0;
+.event-details strong {
+  color: #94a3b8;
+  font-weight: 600;
+  min-width: 50px;
+}
+
+.description {
+  margin: 1rem 0;
+  color: #cbd5e1;
   font-size: 0.95rem;
+  line-height: 1.5;
+  flex-grow: 1;
 }
 
-.event-price {
-  font-weight: bold;
-  color: #61dafb;
+.event-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.price {
+  font-weight: 700;
+  color: #60a5fa;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.tickets {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 .ticket-counter {
@@ -59,29 +137,42 @@
 }
 
 .counter-controls button {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   font-size: 1.2rem;
   line-height: 1;
   padding: 0;
   cursor: pointer;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  border: none;
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.counter-controls button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
 }
 
 .counter-controls button:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .count {
   font-size: 1.25rem;
   font-weight: bold;
-  min-width: 2rem;
+  min-width: 3rem;
   text-align: center;
+  color: #f1f5f9;
 }
 
 .selection-summary {
   margin-top: 0.5rem;
-  color: #61dafb;
+  color: #60a5fa;
   font-size: 0.9rem;
+  font-weight: 500;
 }
 
