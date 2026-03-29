@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/ProductList.css';
+import ProductCard from '../components/organisms/ProductCard';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -14,7 +14,8 @@ function ProductList() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5107/api/products');
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5107';
+      const response = await fetch(`${apiUrl}/api/products`);
       if (!response.ok) {
         throw new Error('Failed to fetch products');
       }
@@ -43,22 +44,7 @@ function ProductList() {
       <div className="products-grid">
         {products.length > 0 ? (
           products.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`} className="product-card-link">
-              <div className="product-card">
-                <div className="product-image">
-                  <img src={product.imageUrl} alt={product.title} />
-                </div>
-                <div className="product-details">
-                  <h2>{product.title}</h2>
-                  <p className="category">{product.category}</p>
-                  <p className="seller-name">By: {product.sellerName}</p>
-                  <div className="product-footer">
-                    <div className="price">${product.price.toFixed(2)}</div>
-                  </div>
-                  <button className="add-to-cart-btn">Add to Cart</button>
-                </div>
-              </div>
-            </Link>
+            <ProductCard key={product.id} product={product} />
           ))
         ) : (
           <p>No products available</p>

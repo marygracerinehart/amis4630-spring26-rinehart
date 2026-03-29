@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/ProductDetail.css';
 
@@ -9,14 +9,11 @@ function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchProduct();
-  }, [id]);
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5107/api/products/${id}`);
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5107';
+      const response = await fetch(`${apiUrl}/api/products/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch product');
       }
@@ -29,7 +26,11 @@ function ProductDetail() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
 
   if (loading) {
     return <div className="product-detail-container"><p>Loading product...</p></div>;
