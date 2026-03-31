@@ -100,34 +100,14 @@
   border-top: 1px solid #eee;
 }
 
-.price {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #27ae60;
-  margin-bottom: 10px;
-}
-
-.seller-info {
-  font-size: 0.85rem;
-  color: #999;
-}
-
-.seller-info p {
-  margin: 5px 0;
-}
-
-.seller-name {
-  font-weight: 500;
-  color: #666;
-}
-
-.posted-date {
-  color: #999;
-  font-size: 0.8rem;
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .add-to-cart-btn {
-  width: 100%;
+  flex: 1;
   padding: 10px;
   background-color: #e74c3c;
   color: white;
@@ -136,7 +116,6 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
   transition: background-color 0.3s ease;
 }
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import AddToCartButton from '../atoms/AddToCartButton';
+import CartActionButton from '../atoms/CartActionButton';
 import PriceDisplay from '../atoms/PriceDisplay';
 import ProductMeta from './ProductMeta';
 
-function ProductCardDetails({ title, category, sellerName, price }) {
+function ProductCardDetails({ product, title, category, sellerName, price }) {
   return (
     <div className="product-details">
       <h2>{title}</h2>
@@ -13,7 +14,10 @@ function ProductCardDetails({ title, category, sellerName, price }) {
         <PriceDisplay price={price} />
       </div>
 
-      <AddToCartButton />
+      <div className="product-actions">
+        <CartActionButton product={product} />
+        <AddToCartButton label="View Details" />
+      </div>
     </div>
   );
 }

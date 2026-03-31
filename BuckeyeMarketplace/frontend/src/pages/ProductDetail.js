@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { useNotification } from '../context/NotificationContext';
 import '../styles/ProductDetail.css';
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addItem } = useCart();
+  const { addNotification } = useNotification();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,6 +35,14 @@ function ProductDetail() {
   useEffect(() => {
     fetchProduct();
   }, [fetchProduct]);
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    if (product) {
+      addItem(product, 1);
+      addNotification(`${product.title} added to cart!`, 'success', 3000);
+    }
+  };
 
   if (loading) {
     return <div className="product-detail-container"><p>Loading product...</p></div>;
@@ -89,7 +101,7 @@ function ProductDetail() {
           </div>
           
           <div className="product-detail-actions">
-            <button className="add-to-cart-btn-detail">Add to Cart</button>
+            <button onClick={handleAddToCart} className="add-to-cart-btn-detail">Add to Cart</button>
             <button className="contact-seller-btn">Contact Seller</button>
           </div>
         </div>

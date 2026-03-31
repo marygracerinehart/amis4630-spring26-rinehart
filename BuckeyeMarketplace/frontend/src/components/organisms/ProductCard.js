@@ -9,6 +9,7 @@ function ProductCard({ product }) {
       <div className="product-card">
         <ProductImage src={product.imageUrl} alt={product.title} />
         <ProductCardDetails
+          product={product}
           title={product.title}
           category={product.category}
           sellerName={product.sellerName}

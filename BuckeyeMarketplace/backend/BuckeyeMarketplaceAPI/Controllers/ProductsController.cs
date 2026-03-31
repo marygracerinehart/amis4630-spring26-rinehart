@@ -20,6 +20,15 @@ namespace BuckeyeMarketplaceAPI.Controllers
             new Product { Id = 9, Title = "Mirror", Description = "Large wall mirror with wooden frame", Category = "Home Decor", Price = 44.99m, SellerName = "Amanda Rodriguez", PostedDate = new DateTime(2026, 3, 2), ImageUrl = "data:image/jpeg;base64,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" }
         };
 
+        /// <summary>
+        /// Static helper so other controllers (e.g. CartController) can look up a product by ID
+        /// from the shared in-memory list.
+        /// </summary>
+        public static Product? GetProductById(int id)
+        {
+            return products.FirstOrDefault(p => p.Id == id);
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetProducts()
         {
