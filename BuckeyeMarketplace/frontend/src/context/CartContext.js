@@ -1,8 +1,7 @@
 import React, { createContext, useReducer, useContext, useMemo, useEffect } from 'react';
+import * as cartService from '../services/cartService';
 
 const CartContext = createContext();
-
-const API_BASE_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5107'}/api/cart`;
 
 // Action types
 export const CART_ACTIONS = {
@@ -95,21 +94,10 @@ export function CartProvider({ children }) {
     const fetchCart = async () => {
       try {
         dispatch({ type: CART_ACTIONS.SET_LOADING, payload: true });
-        const response = await fetch(API_BASE_URL, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch cart');
-        }
-
-        const cartData = await response.json();
+        const items = await cartService.fetchCart();
         dispatch({
           type: CART_ACTIONS.SET_CART,
-          payload: cartData.items || [],
+          payload: items,
         });
         dispatch({ type: CART_ACTIONS.SET_ERROR, payload: null });
       } catch (error) {
@@ -157,27 +145,10 @@ export function useCart() {
   const addItem = async (product, quantity = 1) => {
     try {
       dispatch({ type: CART_ACTIONS.SET_ERROR, payload: null });
-      const response = await fetch(API_BASE_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          productId: product.id,
-          quantity,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add item to cart');
-      }
-
-      // Refresh cart from server
-      const cartResponse = await fetch(API_BASE_URL);
-      const cartData = await cartResponse.json();
+      const items = await cartService.addItemToCart(product.id, quantity);
       dispatch({
         type: CART_ACTIONS.SET_CART,
-        payload: cartData.items || [],
+        payload: items,
       });
     } catch (error) {
       console.error('Error adding item:', error);
@@ -195,23 +166,10 @@ export function useCart() {
         throw new Error('Item not found in cart');
       }
 
-      const response = await fetch(`${API_BASE_URL}/${cartItem.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to remove item from cart');
-      }
-
-      // Refresh cart from server
-      const cartResponse = await fetch(API_BASE_URL);
-      const cartData = await cartResponse.json();
+      const items = await cartService.removeItemFromCart(cartItem.id);
       dispatch({
         type: CART_ACTIONS.SET_CART,
-        payload: cartData.items || [],
+        payload: items,
       });
       
       // Return product title for success notification
@@ -233,24 +191,10 @@ export function useCart() {
         throw new Error('Item not found in cart');
       }
 
-      const response = await fetch(`${API_BASE_URL}/${cartItem.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ quantity: Math.max(1, quantity) }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update item quantity');
-      }
-
-      // Refresh cart from server
-      const cartResponse = await fetch(API_BASE_URL);
-      const cartData = await cartResponse.json();
+      const items = await cartService.updateCartItemQuantity(cartItem.id, quantity);
       dispatch({
         type: CART_ACTIONS.SET_CART,
-        payload: cartData.items || [],
+        payload: items,
       });
     } catch (error) {
       console.error('Error updating quantity:', error);
@@ -261,17 +205,7 @@ export function useCart() {
   const clearCart = async () => {
     try {
       dispatch({ type: CART_ACTIONS.SET_ERROR, payload: null });
-      const response = await fetch(`${API_BASE_URL}/clear`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to clear cart');
-      }
-
+      await cartService.clearEntireCart();
       dispatch({
         type: CART_ACTIONS.SET_CART,
         payload: [],
