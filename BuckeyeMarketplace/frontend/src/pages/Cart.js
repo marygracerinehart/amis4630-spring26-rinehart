@@ -115,7 +115,7 @@ function Cart() {
                 onClick={async () => {
                   const productTitle = await removeItem(item.id);
                   if (productTitle) {
-                    addNotification(`${productTitle} removed from cart`, 'success', 3000);
+                    addNotification(`${productTitle} removed from cart`, 'error', 3000);
                   }
                 }}
                 className="remove-btn"
