@@ -1,0 +1,19 @@
+## Milestone 4 - AI Usage
+
+### Tools Used
+Claude (claude.ai), GitHub Copilot
+
+### Prompts I Used
+- Added `StockQuantity` property to the Product model and created an EF Core migration
+- Seeded all 12 products with realistic stock quantities and set one product to 0 for out-of-stock testing
+- Updated CartController to validate stock before add/update operations and return specific error messages
+- Updated frontend components (ProductCard, ProductDetail) to show out-of-stock status and disable buttons accordingly
+- Modified `removeItem()` to return product title and show a red removal notification using NotificationContext
+- Refactored cart into separate components: CartItem, CartSummary, CartPage
+- Refactored API calls
+
+### What I Did Myself
+- Verified everything was displaying correctly in the browser
+- Tested manually using Swagger UI
+- Tested manually in frontend
+- Frontend UX decisions
