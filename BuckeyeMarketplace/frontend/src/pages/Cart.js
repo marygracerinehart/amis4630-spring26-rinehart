@@ -44,7 +44,7 @@ function Cart() {
           <Link to="/" className="back-link">← Back to Products</Link>
         </div>
         <div className="empty-cart">
-          <p>Your cart is empty</p>
+          <p>No items in Cart</p>
           <Link to="/" className="continue-shopping-btn">Continue Shopping</Link>
         </div>
       </div>

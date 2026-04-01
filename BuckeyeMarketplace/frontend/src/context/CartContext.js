@@ -163,7 +163,8 @@ export function useCart() {
       // Find the cartItemId and product title from the current state
       const cartItem = state.items.find(item => item.productId === productId);
       if (!cartItem) {
-        throw new Error('Item not found in cart');
+        console.warn('Item not found in cart');
+        return null;
       }
 
       const items = await cartService.removeItemFromCart(cartItem.id);
@@ -188,7 +189,8 @@ export function useCart() {
       // Find the cartItemId from the current state
       const cartItem = state.items.find(item => item.productId === productId);
       if (!cartItem) {
-        throw new Error('Item not found in cart');
+        console.warn('Item not found in cart');
+        return;
       }
 
       const items = await cartService.updateCartItemQuantity(cartItem.id, quantity);

@@ -5,7 +5,7 @@ function CartItem({ item, onRemove, onUpdateQuantity }) {
   const { addNotification } = useNotification();
 
   const handleRemove = async () => {
-    const productTitle = await onRemove(item.id);
+    const productTitle = await onRemove(item.productId);
     if (productTitle) {
       addNotification(`${productTitle} removed from cart`, 'error', 3000);
     }
@@ -28,7 +28,7 @@ function CartItem({ item, onRemove, onUpdateQuantity }) {
 
       <div className="item-quantity">
         <button
-          onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+          onClick={() => onUpdateQuantity(item.productId, item.quantity - 1)}
           className="qty-btn"
           disabled={item.quantity <= 1}
         >
@@ -37,12 +37,12 @@ function CartItem({ item, onRemove, onUpdateQuantity }) {
         <input
           type="number"
           value={item.quantity}
-          onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
+          onChange={(e) => onUpdateQuantity(item.productId, parseInt(e.target.value) || 1)}
           className="qty-input"
           min="1"
         />
         <button
-          onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+          onClick={() => onUpdateQuantity(item.productId, item.quantity + 1)}
           className="qty-btn"
         >
           +
