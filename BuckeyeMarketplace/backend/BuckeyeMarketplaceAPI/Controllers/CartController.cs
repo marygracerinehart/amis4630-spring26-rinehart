@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using BuckeyeMarketplaceAPI.Data;
 using BuckeyeMarketplaceAPI.Models;
 
 namespace BuckeyeMarketplaceAPI.Controllers
@@ -18,41 +20,32 @@ namespace BuckeyeMarketplaceAPI.Controllers
     [Route("api/[controller]")]
     public class CartController : ControllerBase
     {
+        private readonly AppDbContext _context;
+
         // Hardcoded user ID — will be replaced with auth in M5
         private const string HardcodedUserId = "user-1";
 
-        // In-memory cart storage shared across requests
-        private static readonly List<Cart> _carts = new();
-        private static int _nextCartItemId = 1;
-
-        // Reference to products — shares the same in-memory list as ProductsController
-        private static List<Product>? _products;
-
-        private static List<Product> Products
+        public CartController(AppDbContext context)
         {
-            get
-            {
-                if (_products == null)
-                {
-                    // Initialize with the same seed data structure; in a real app this would be a DB
-                    _products = new List<Product>();
-                }
-                return _products;
-            }
+            _context = context;
         }
 
-        private Cart GetOrCreateCart(string userId)
+        /// <summary>
+        /// Get or create a cart for the given user (persisted to the database).
+        /// </summary>
+        private async Task<Cart> GetOrCreateCartAsync(string userId)
         {
-            var cart = _carts.FirstOrDefault(c => c.UserId == userId);
+            var cart = await _context.Carts
+                .Include(c => c.Items)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
             if (cart == null)
             {
-                cart = new Cart
-                {
-                    Id = _carts.Count + 1,
-                    UserId = userId
-                };
-                _carts.Add(cart);
+                cart = new Cart { UserId = userId };
+                _context.Carts.Add(cart);
+                await _context.SaveChangesAsync();
             }
+
             return cart;
         }
 
@@ -60,9 +53,9 @@ namespace BuckeyeMarketplaceAPI.Controllers
         /// GET /api/cart — Retrieve cart contents for the current user
         /// </summary>
         [HttpGet]
-        public ActionResult<Cart> GetCart()
+        public async Task<ActionResult<Cart>> GetCart()
         {
-            var cart = GetOrCreateCart(HardcodedUserId);
+            var cart = await GetOrCreateCartAsync(HardcodedUserId);
             return Ok(cart);
         }
 
@@ -70,33 +63,46 @@ namespace BuckeyeMarketplaceAPI.Controllers
         /// POST /api/cart — Add an item to the cart
         /// </summary>
         [HttpPost]
-        public ActionResult<CartItem> AddToCart([FromBody] AddToCartRequest request)
+        public async Task<ActionResult<CartItem>> AddToCart([FromBody] AddToCartRequest request)
         {
             if (request.Quantity <= 0)
             {
                 return BadRequest(new { message = "Quantity must be greater than zero." });
             }
 
-            // Look up the product from the ProductsController's shared list
-            var product = ProductsController.GetProductById(request.ProductId);
+            // Look up the product from the database
+            var product = await _context.Products.FindAsync(request.ProductId);
             if (product == null)
             {
                 return NotFound(new { message = $"Product with ID {request.ProductId} not found." });
             }
 
-            var cart = GetOrCreateCart(HardcodedUserId);
+            // Check if product is out of stock
+            if (product.StockQuantity <= 0)
+            {
+                return BadRequest(new { message = $"Sorry, {product.Title} is out of stock." });
+            }
+
+            // Check if requested quantity exceeds available stock
+            if (request.Quantity > product.StockQuantity)
+            {
+                return BadRequest(new { message = $"Cannot add {request.Quantity} units. Only {product.StockQuantity} available in stock." });
+            }
+
+            var cart = await GetOrCreateCartAsync(HardcodedUserId);
 
             // Check if item already exists in cart
             var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
             if (existingItem != null)
             {
                 existingItem.Quantity += request.Quantity;
+                await _context.SaveChangesAsync();
                 return Ok(existingItem);
             }
 
             var cartItem = new CartItem
             {
-                Id = _nextCartItemId++,
+                CartId = cart.Id,
                 ProductId = product.Id,
                 Quantity = request.Quantity,
                 Title = product.Title,
@@ -106,7 +112,8 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 SellerName = product.SellerName
             };
 
-            cart.Items.Add(cartItem);
+            _context.CartItems.Add(cartItem);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetCart), null, cartItem);
         }
 
@@ -114,22 +121,37 @@ namespace BuckeyeMarketplaceAPI.Controllers
         /// PUT /api/cart/{cartItemId} — Update item quantity
         /// </summary>
         [HttpPut("{cartItemId}")]
-        public ActionResult<CartItem> UpdateCartItem(int cartItemId, [FromBody] UpdateCartItemRequest request)
+        public async Task<ActionResult<CartItem>> UpdateCartItem(int cartItemId, [FromBody] UpdateCartItemRequest request)
         {
             if (request.Quantity <= 0)
             {
                 return BadRequest(new { message = "Quantity must be greater than zero." });
             }
 
-            var cart = GetOrCreateCart(HardcodedUserId);
-            var item = cart.Items.FirstOrDefault(i => i.Id == cartItemId);
+            var item = await _context.CartItems.FindAsync(cartItemId);
 
             if (item == null)
             {
                 return NotFound(new { message = $"Cart item with ID {cartItemId} not found." });
             }
 
+            // Check if quantity exceeds stock
+            var product = await _context.Products.FindAsync(item.ProductId);
+            if (product != null)
+            {
+                if (product.StockQuantity <= 0)
+                {
+                    return BadRequest(new { message = $"Sorry, {product.Title} is out of stock." });
+                }
+
+                if (request.Quantity > product.StockQuantity)
+                {
+                    return BadRequest(new { message = $"Cannot update to {request.Quantity} units. Only {product.StockQuantity} available in stock." });
+                }
+            }
+
             item.Quantity = request.Quantity;
+            await _context.SaveChangesAsync();
             return Ok(item);
         }
 
@@ -137,17 +159,17 @@ namespace BuckeyeMarketplaceAPI.Controllers
         /// DELETE /api/cart/{cartItemId} — Remove an item from the cart
         /// </summary>
         [HttpDelete("{cartItemId}")]
-        public IActionResult RemoveCartItem(int cartItemId)
+        public async Task<IActionResult> RemoveCartItem(int cartItemId)
         {
-            var cart = GetOrCreateCart(HardcodedUserId);
-            var item = cart.Items.FirstOrDefault(i => i.Id == cartItemId);
+            var item = await _context.CartItems.FindAsync(cartItemId);
 
             if (item == null)
             {
                 return NotFound(new { message = $"Cart item with ID {cartItemId} not found." });
             }
 
-            cart.Items.Remove(item);
+            _context.CartItems.Remove(item);
+            await _context.SaveChangesAsync();
             return Ok(new { message = "Item removed from cart." });
         }
 
@@ -155,10 +177,11 @@ namespace BuckeyeMarketplaceAPI.Controllers
         /// DELETE /api/cart/clear — Clear the entire cart
         /// </summary>
         [HttpDelete("clear")]
-        public IActionResult ClearCart()
+        public async Task<IActionResult> ClearCart()
         {
-            var cart = GetOrCreateCart(HardcodedUserId);
-            cart.Items.Clear();
+            var cart = await GetOrCreateCartAsync(HardcodedUserId);
+            _context.CartItems.RemoveRange(cart.Items);
+            await _context.SaveChangesAsync();
             return Ok(new { message = "Cart cleared." });
         }
     }

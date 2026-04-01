@@ -87,6 +87,19 @@ function ProductDetail() {
             <span className="price-value">${product.price.toFixed(2)}</span>
           </div>
           
+          <div className="detail-stock">
+            <strong>Stock:</strong>
+            {product.stockQuantity > 0 ? (
+              <span style={{ color: '#5cb85c', marginLeft: '8px' }}>
+                {product.stockQuantity} available
+              </span>
+            ) : (
+              <span style={{ color: '#d9534f', marginLeft: '8px', fontWeight: 'bold' }}>
+                Out of Stock
+              </span>
+            )}
+          </div>
+          
           <div className="detail-description">
             <strong>Description:</strong>
             <p>{product.description}</p>
@@ -101,7 +114,14 @@ function ProductDetail() {
           </div>
           
           <div className="product-detail-actions">
-            <button onClick={handleAddToCart} className="add-to-cart-btn-detail">Add to Cart</button>
+            <button 
+              onClick={handleAddToCart} 
+              className="add-to-cart-btn-detail"
+              disabled={product.stockQuantity <= 0}
+              style={{ opacity: product.stockQuantity <= 0 ? 0.5 : 1, cursor: product.stockQuantity <= 0 ? 'not-allowed' : 'pointer' }}
+            >
+              {product.stockQuantity <= 0 ? 'Out of Stock' : 'Add to Cart'}
+            </button>
             <button className="contact-seller-btn">Contact Seller</button>
           </div>
         </div>

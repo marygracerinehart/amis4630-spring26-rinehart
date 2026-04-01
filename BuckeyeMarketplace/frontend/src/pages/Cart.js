@@ -1,10 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useNotification } from '../context/NotificationContext';
 import '../styles/Cart.css';
 
 function Cart() {
-  const { items, itemCount, subtotal, total, removeItem, updateQuantity, clearCart } = useCart();
+  const { items, itemCount, subtotal, total, isLoading, error, removeItem, updateQuantity, clearCart } = useCart();
+  const { addNotification } = useNotification();
+
+  if (isLoading) {
+    return (
+      <div className="cart-container">
+        <div className="cart-header">
+          <h1>Shopping Cart</h1>
+          <Link to="/" className="back-link">← Back to Products</Link>
+        </div>
+        <div className="empty-cart">
+          <p>Loading your cart...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="cart-container">
+        <div className="cart-header">
+          <h1>Shopping Cart</h1>
+          <Link to="/" className="back-link">← Back to Products</Link>
+        </div>
+        <div className="empty-cart">
+          <p style={{ color: 'red' }}>Error loading cart: {error}</p>
+          <Link to="/" className="continue-shopping-btn">Back to Products</Link>
+        </div>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (
@@ -81,7 +112,12 @@ function Cart() {
               </div>
 
               <button
-                onClick={() => removeItem(item.id)}
+                onClick={async () => {
+                  const productTitle = await removeItem(item.id);
+                  if (productTitle) {
+                    addNotification(`${productTitle} removed from cart`, 'success', 3000);
+                  }
+                }}
                 className="remove-btn"
                 title="Remove from cart"
               >
