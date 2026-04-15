@@ -66,8 +66,12 @@ export function AuthProvider({ children }) {
 
   /**
    * Log out the current user
+   * - Revokes the refresh token on the server (best-effort)
+   * - Clears localStorage
+   * - Resets React state
    */
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    await authService.revokeToken();
     authService.clearAuthData();
     setToken(null);
     setUser(null);

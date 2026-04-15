@@ -1,16 +1,22 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
+import { useCart, CART_ACTIONS } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
+import { useNotification } from '../../context/NotificationContext';
 import '../../styles/Header.css';
 
 function Header() {
-  const { itemCount } = useCart();
+  const { itemCount, dispatch } = useCart();
   const { isAuthenticated, user, logout } = useAuth();
+  const { addNotification } = useNotification();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    const firstName = user?.fullName?.split(' ')[0] || 'User';
+    await logout();
+    // Clear cart locally (no API call — token is already revoked)
+    dispatch({ type: CART_ACTIONS.SET_CART, payload: [] });
+    addNotification(`Goodbye, ${firstName}! You've been logged out.`, 'info');
     navigate('/login');
   };
 

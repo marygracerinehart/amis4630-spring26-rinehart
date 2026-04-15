@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
 import LoginForm from '../components/molecules/LoginForm';
@@ -9,6 +9,7 @@ import '../styles/Login.css';
 /**
  * Login Page - Provides login and registration with tab switching
  * Uses AuthContext for authentication and NotificationContext for feedback
+ * Supports redirect-after-login via location.state.from (set by ProtectedRoute)
  */
 function Login() {
   const [activeTab, setActiveTab] = useState('login');
@@ -17,10 +18,14 @@ function Login() {
   const { login, register, isAuthenticated } = useAuth();
   const { addNotification } = useNotification();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Where to redirect after successful login (default: home)
+  const redirectTo = location.state?.from || '/';
 
   // Redirect if already logged in
   if (isAuthenticated) {
-    navigate('/', { replace: true });
+    navigate(redirectTo, { replace: true });
     return null;
   }
 
@@ -30,7 +35,7 @@ function Login() {
     try {
       const user = await login(email, password);
       addNotification(`Welcome back, ${user.fullName}!`, 'success');
-      navigate('/');
+      navigate(redirectTo);
     } catch (err) {
       setServerError(err.message);
     } finally {
@@ -44,7 +49,7 @@ function Login() {
     try {
       const user = await register(email, password, confirmPassword, fullName);
       addNotification(`Welcome to Buckeye Marketplace, ${user.fullName}!`, 'success');
-      navigate('/');
+      navigate(redirectTo);
     } catch (err) {
       setServerError(err.message);
     } finally {

@@ -1,8 +1,10 @@
-const API_BASE_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5107'}/api/cart`;
+import { apiFetch } from './apiClient';
+
+const API_PATH = '/api/cart';
 
 /**
  * Cart Service - Handles all cart-related API calls
- * Separates API logic from state management
+ * Uses apiFetch for automatic JWT token injection and 401 refresh-retry
  */
 
 /**
@@ -10,11 +12,8 @@ const API_BASE_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5107'
  * @returns {Promise<Array>} Array of cart items
  */
 export async function fetchCart() {
-  const response = await fetch(API_BASE_URL, {
+  const response = await apiFetch(API_PATH, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 
   if (!response.ok) {
@@ -32,11 +31,8 @@ export async function fetchCart() {
  * @returns {Promise<Array>} Updated cart items
  */
 export async function addItemToCart(productId, quantity = 1) {
-  const response = await fetch(API_BASE_URL, {
+  const response = await apiFetch(API_PATH, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({
       productId,
       quantity,
@@ -57,11 +53,8 @@ export async function addItemToCart(productId, quantity = 1) {
  * @returns {Promise<Array>} Updated cart items
  */
 export async function removeItemFromCart(cartItemId) {
-  const response = await fetch(`${API_BASE_URL}/${cartItemId}`, {
+  const response = await apiFetch(`${API_PATH}/${cartItemId}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 
   if (!response.ok) {
@@ -79,11 +72,8 @@ export async function removeItemFromCart(cartItemId) {
  * @returns {Promise<Array>} Updated cart items
  */
 export async function updateCartItemQuantity(cartItemId, quantity) {
-  const response = await fetch(`${API_BASE_URL}/${cartItemId}`, {
+  const response = await apiFetch(`${API_PATH}/${cartItemId}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ quantity: Math.max(1, quantity) }),
   });
 
@@ -100,11 +90,8 @@ export async function updateCartItemQuantity(cartItemId, quantity) {
  * @returns {Promise<Array>} Empty cart items array
  */
 export async function clearEntireCart() {
-  const response = await fetch(`${API_BASE_URL}/clear`, {
+  const response = await apiFetch(`${API_PATH}/clear`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 
   if (!response.ok) {

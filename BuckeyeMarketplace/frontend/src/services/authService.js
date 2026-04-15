@@ -95,6 +95,26 @@ export function saveAuthData(authData) {
 }
 
 /**
+ * Revoke the refresh token on the server (server-side logout).
+ * Best-effort: errors are silenced so logout always completes client-side.
+ * @returns {Promise<void>}
+ */
+export async function revokeToken() {
+  const refreshTokenValue = localStorage.getItem('refreshToken');
+  if (!refreshTokenValue) return;
+
+  try {
+    await fetch(`${API_BASE_URL}/revoke`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refreshToken: refreshTokenValue }),
+    });
+  } catch {
+    // Silently ignore — client will clear local data regardless
+  }
+}
+
+/**
  * Get stored auth data from localStorage
  * @returns {Object|null} Stored user and tokens, or null
  */

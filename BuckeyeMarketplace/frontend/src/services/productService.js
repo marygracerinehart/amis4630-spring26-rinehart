@@ -1,8 +1,10 @@
-const API_BASE_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5107'}/api/products`;
+import { apiFetch } from './apiClient';
+
+const API_PATH = '/api/products';
 
 /**
  * Product Service - Handles all product-related API calls
- * Separates API logic from component logic
+ * Uses apiFetch for automatic JWT token injection and 401 refresh-retry
  */
 
 /**
@@ -10,11 +12,8 @@ const API_BASE_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5107'
  * @returns {Promise<Array>} Array of products
  */
 export async function fetchAllProducts() {
-  const response = await fetch(API_BASE_URL, {
+  const response = await apiFetch(API_PATH, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 
   if (!response.ok) {
@@ -30,11 +29,8 @@ export async function fetchAllProducts() {
  * @returns {Promise<Object>} Product object
  */
 export async function fetchProductById(productId) {
-  const response = await fetch(`${API_BASE_URL}/${productId}`, {
+  const response = await apiFetch(`${API_PATH}/${productId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 
   if (!response.ok) {
