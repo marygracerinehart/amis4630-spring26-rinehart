@@ -17,7 +17,7 @@ public class CartControllerTests : IClassFixture<CustomWebApplicationFactory>
 
     public CartControllerTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();
+        _client = factory.CreateAuthenticatedClient("cart-test-user");
     }
 
     // ---------------------------------------------------------------

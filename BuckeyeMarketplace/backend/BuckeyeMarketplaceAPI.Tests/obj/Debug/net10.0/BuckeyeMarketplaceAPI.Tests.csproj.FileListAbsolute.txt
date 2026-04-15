@@ -30,8 +30,6 @@
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.Connections.Abstractions.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.CookiePolicy.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.Cors.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.Cryptography.Internal.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.DataProtection.Abstractions.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.DataProtection.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.DataProtection.Extensions.dll
@@ -100,9 +98,7 @@
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.WebSockets.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.AspNetCore.WebUtilities.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.CSharp.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.Binder.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.CommandLine.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.EnvironmentVariables.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.FileExtensions.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.Ini.dll
@@ -110,8 +106,6 @@
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.KeyPerFile.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.UserSecrets.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Configuration.Xml.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Diagnostics.Abstractions.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Diagnostics.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Diagnostics.HealthChecks.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Features.dll
@@ -123,8 +117,6 @@
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Hosting.Abstractions.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Hosting.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Http.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Identity.Core.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Identity.Stores.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Localization.Abstractions.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Localization.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Logging.Configuration.dll
@@ -134,7 +126,6 @@
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Logging.EventSource.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Logging.TraceSource.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.ObjectPool.dll
-/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Options.ConfigurationExtensions.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Options.DataAnnotations.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.Validation.dll
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/refs/Microsoft.Extensions.WebEncoders.dll
@@ -453,3 +444,21 @@
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/obj/Debug/net10.0/BuckeyeMarketplaceAPI.Tests.pdb
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/obj/Debug/net10.0/BuckeyeMarketplaceAPI.Tests.genruntimeconfig.cache
 /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/obj/Debug/net10.0/ref/BuckeyeMarketplaceAPI.Tests.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.Extensions.Configuration.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.Extensions.Configuration.Binder.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.Extensions.Diagnostics.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.Extensions.Identity.Core.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.Extensions.Identity.Stores.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.IdentityModel.Logging.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
+/Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll

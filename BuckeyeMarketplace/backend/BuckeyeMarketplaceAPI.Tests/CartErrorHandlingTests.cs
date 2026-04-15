@@ -13,7 +13,7 @@ public class CartErrorHandlingTests : IClassFixture<CustomWebApplicationFactory>
 
     public CartErrorHandlingTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();
+        _client = factory.CreateAuthenticatedClient("cart-error-test-user");
     }
 
     // ---------------------------------------------------------------

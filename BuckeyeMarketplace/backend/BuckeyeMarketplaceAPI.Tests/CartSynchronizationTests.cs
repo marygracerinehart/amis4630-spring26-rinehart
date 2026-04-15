@@ -19,7 +19,7 @@ public class CartSynchronizationTests : IClassFixture<CustomWebApplicationFactor
 
     public CartSynchronizationTests(CustomWebApplicationFactory factory)
     {
-        _client = factory.CreateClient();
+        _client = factory.CreateAuthenticatedClient("cart-sync-test-user");
     }
 
     /// <summary>
