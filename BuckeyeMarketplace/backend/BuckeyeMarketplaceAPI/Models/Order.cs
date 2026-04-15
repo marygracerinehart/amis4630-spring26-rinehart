@@ -33,5 +33,14 @@ namespace BuckeyeMarketplaceAPI.Models
 
         /// <summary>Navigation collection — the line items in this order</summary>
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        /// <summary>
+        /// Computes the order total from the current Items collection.
+        /// Pure logic — no database or I/O involved.
+        /// </summary>
+        public decimal CalculateTotal()
+        {
+            return Items.Sum(i => i.UnitPrice * i.Quantity);
+        }
     }
 }

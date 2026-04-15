@@ -93,11 +93,12 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 };
 
                 order.Items.Add(orderItem);
-                order.TotalAmount += orderItem.UnitPrice * orderItem.Quantity;
 
                 // Reduce stock
                 product!.StockQuantity -= cartItem.Quantity;
             }
+
+            order.TotalAmount = order.CalculateTotal();
 
             _context.Orders.Add(order);
 
