@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CartSummary({ itemCount, subtotal, total, onClearCart, onCheckout }) {
+function CartSummary({ itemCount, subtotal, total, onClearCart, onCheckout, checkoutLoading, checkoutError, shippingAddress, onShippingAddressChange }) {
   return (
     <div className="cart-summary">
       <div className="summary-header">Order Summary</div>
@@ -28,11 +28,34 @@ function CartSummary({ itemCount, subtotal, total, onClearCart, onCheckout }) {
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <button className="checkout-btn" onClick={onCheckout}>
-        Proceed to Checkout
+      <div className="shipping-address-group">
+        <label htmlFor="shipping-address" className="shipping-address-label">
+          Shipping Address
+        </label>
+        <textarea
+          id="shipping-address"
+          className="shipping-address-input"
+          placeholder="Enter your full shipping address..."
+          value={shippingAddress}
+          onChange={(e) => onShippingAddressChange(e.target.value)}
+          rows={3}
+          disabled={checkoutLoading}
+        />
+      </div>
+
+      {checkoutError && (
+        <div className="checkout-error">{checkoutError}</div>
+      )}
+
+      <button
+        className="checkout-btn"
+        onClick={onCheckout}
+        disabled={checkoutLoading}
+      >
+        {checkoutLoading ? 'Placing Order...' : 'Place Order'}
       </button>
 
-      <button onClick={onClearCart} className="clear-cart-btn">
+      <button onClick={onClearCart} className="clear-cart-btn" disabled={checkoutLoading}>
         Clear Cart
       </button>
 

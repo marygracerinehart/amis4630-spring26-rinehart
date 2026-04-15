@@ -9,7 +9,7 @@ namespace BuckeyeMarketplaceAPI.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/orders")]
     public class OrderController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -33,9 +33,14 @@ namespace BuckeyeMarketplaceAPI.Controllers
         /// Converts all cart items into order items, reduces stock, and clears the cart.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<Order>> PlaceOrder()
+        public async Task<ActionResult<Order>> PlaceOrder([FromBody] PlaceOrderDto dto)
         {
             var userId = GetUserId();
+
+            if (string.IsNullOrWhiteSpace(dto.ShippingAddress))
+            {
+                return BadRequest(new { message = "Shipping address is required." });
+            }
 
             // Load the user's cart with items
             var cart = await _context.Carts
@@ -67,7 +72,8 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 UserId = userId,
                 OrderDate = DateTime.UtcNow,
                 Status = "Pending",
-                TotalAmount = 0
+                TotalAmount = 0,
+                ShippingAddress = dto.ShippingAddress.Trim()
             };
 
             foreach (var cartItem in cart.Items)
@@ -103,10 +109,11 @@ namespace BuckeyeMarketplaceAPI.Controllers
         }
 
         /// <summary>
-        /// GET /api/order — Get all orders for the current user.
+        /// GET /api/orders/mine — Current user's order history.
+        /// User ID comes from the JWT, not the URL.
         /// </summary>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        [HttpGet("mine")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetMyOrders()
         {
             var userId = GetUserId();
 
@@ -138,5 +145,13 @@ namespace BuckeyeMarketplaceAPI.Controllers
 
             return Ok(order);
         }
+    }
+
+    /// <summary>
+    /// DTO for placing an order — carries the shipping address from the client.
+    /// </summary>
+    public class PlaceOrderDto
+    {
+        public string ShippingAddress { get; set; } = string.Empty;
     }
 }

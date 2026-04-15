@@ -26,6 +26,11 @@ namespace BuckeyeMarketplaceAPI.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; set; }
 
+        /// <summary>Shipping address provided at checkout</summary>
+        [Required]
+        [MaxLength(500)]
+        public string ShippingAddress { get; set; } = string.Empty;
+
         /// <summary>Navigation collection — the line items in this order</summary>
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
     }

@@ -1,0 +1,273 @@
+/* ==========================================
+   Order Confirmation Page Styles
+   ========================================== */
+
+.order-confirmation {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 70px);
+  background-color: #f5f5f5;
+}
+
+.order-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Success Header */
+.order-success-icon {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.order-success-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.order-success-subtitle {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1rem;
+  margin: 0 0 32px 0;
+}
+
+/* Order Details */
+.order-details {
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.order-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.order-details-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.order-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.order-status--pending {
+  background-color: #fef5e7;
+  color: #f39c12;
+}
+
+.order-status--completed {
+  background-color: #eafaf1;
+  color: #27ae60;
+}
+
+.order-status--cancelled {
+  background-color: #fdf0ef;
+  color: #e74c3c;
+}
+
+/* Meta Info */
+.order-meta {
+  display: flex;
+  gap: 20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.order-meta-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-meta-label {
+  font-size: 0.8rem;
+  color: #95a5a6;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.order-meta-value {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.order-meta-total {
+  color: #27ae60;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Shipping Address */
+.order-shipping {
+  padding: 16px 20px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.order-shipping-address {
+  margin: 6px 0 0 0;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* Items List */
+.order-items-list {
+  padding: 16px 20px;
+}
+
+.order-items-list h3 {
+  margin: 0 0 16px 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item-image {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid #ecf0f1;
+  background-color: #f9f9f9;
+}
+
+.order-item-info {
+  flex: 1;
+}
+
+.order-item-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.order-item-category {
+  margin: 2px 0 0 0;
+  font-size: 0.75rem;
+  color: #95a5a6;
+  text-transform: uppercase;
+}
+
+.order-item-seller {
+  margin: 2px 0 0 0;
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.order-item-qty {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.order-item-price {
+  font-weight: 700;
+  color: #27ae60;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+/* Actions */
+.order-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.order-btn {
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.order-btn:hover {
+  transform: translateY(-1px);
+}
+
+.order-btn--primary {
+  background-color: #27ae60;
+  color: white;
+}
+
+.order-btn--primary:hover {
+  background-color: #229954;
+}
+
+/* Empty State */
+.order-empty {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.order-empty h2 {
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+}
+
+.order-empty p {
+  color: #7f8c8d;
+  margin: 0 0 24px 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .order-card {
+    padding: 24px;
+  }
+
+  .order-success-title {
+    font-size: 1.4rem;
+  }
+
+  .order-meta {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .order-item {
+    flex-wrap: wrap;
+  }
+}

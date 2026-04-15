@@ -4,7 +4,7 @@ import CartItem from '../molecules/CartItem';
 import CartSummary from './CartContent';
 import '../../styles/Cart.css';
 
-function CartPage({ items, itemCount, subtotal, total, onRemove, onUpdateQuantity, onClearCart }) {
+function CartPage({ items, itemCount, subtotal, total, onRemove, onUpdateQuantity, onClearCart, onCheckout, checkoutLoading, checkoutError, shippingAddress, onShippingAddressChange }) {
   return (
     <div className="cart-container">
       <div className="cart-header">
@@ -37,10 +37,11 @@ function CartPage({ items, itemCount, subtotal, total, onRemove, onUpdateQuantit
           subtotal={subtotal}
           total={total}
           onClearCart={onClearCart}
-          onCheckout={() => {
-            // Checkout handler - can be extended later
-            console.log('Proceeding to checkout');
-          }}
+          onCheckout={onCheckout}
+          checkoutLoading={checkoutLoading}
+          checkoutError={checkoutError}
+          shippingAddress={shippingAddress}
+          onShippingAddressChange={onShippingAddressChange}
         />
       </div>
     </div>
