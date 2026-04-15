@@ -7,7 +7,7 @@ import '../../styles/Header.css';
 
 function Header() {
   const { itemCount, dispatch } = useCart();
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { addNotification } = useNotification();
   const navigate = useNavigate();
 
@@ -29,6 +29,11 @@ function Header() {
         <div className="header-actions">
           {isAuthenticated ? (
             <>
+              {isAdmin && (
+                <Link to="/admin" className="header-auth-button header-admin">
+                  Admin
+                </Link>
+              )}
               <span className="header-greeting">Hi, {user?.fullName?.split(' ')[0]}</span>
               <button className="header-auth-button header-logout" onClick={handleLogout}>
                 Logout

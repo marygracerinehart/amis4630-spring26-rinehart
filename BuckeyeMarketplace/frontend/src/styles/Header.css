@@ -82,6 +82,16 @@
   transform: scale(1.05);
 }
 
+.header-admin {
+  background-color: #9b59b6;
+  color: white;
+}
+
+.header-admin:hover {
+  background-color: #8e44ad;
+  transform: scale(1.05);
+}
+
 .cart-button {
   display: flex;
   align-items: center;

@@ -65,6 +65,10 @@ namespace BuckeyeMarketplaceAPI.Controllers
             existingProduct.Description = product.Description;
             existingProduct.Category = product.Category;
             existingProduct.Price = product.Price;
+            existingProduct.SellerName = product.SellerName;
+            existingProduct.ImageUrl = product.ImageUrl;
+            existingProduct.StockQuantity = product.StockQuantity;
+            existingProduct.PostedDate = product.PostedDate;
 
             return NoContent();
         }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BuckeyeMarketplaceAPI.Data;
 using BuckeyeMarketplaceAPI.Models;
+using System.Linq;
 
 namespace BuckeyeMarketplaceAPI.Controllers
 {
@@ -144,6 +145,31 @@ namespace BuckeyeMarketplaceAPI.Controllers
             }
 
             return Ok(order);
+        }
+
+        /// <summary>
+        /// PUT /api/orders/{orderId}/status — Update an order's status (admin only).
+        /// Valid statuses: Pending, Processing, Shipped, Delivered, Cancelled.
+        /// </summary>
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{orderId}/status")]
+        public async Task<IActionResult> UpdateOrderStatus(int orderId, [FromBody] UpdateOrderStatusDto model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var validStatuses = new[] { "Pending", "Processing", "Shipped", "Delivered", "Cancelled" };
+            if (!validStatuses.Contains(model.Status))
+                return BadRequest(new { message = $"Invalid status '{model.Status}'. Must be one of: {string.Join(", ", validStatuses)}." });
+
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null)
+                return NotFound(new { message = $"Order with ID {orderId} not found." });
+
+            order.Status = model.Status;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = $"Order {orderId} status updated to '{model.Status}'." });
         }
     }
 

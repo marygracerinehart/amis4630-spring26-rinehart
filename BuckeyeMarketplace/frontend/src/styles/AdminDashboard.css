@@ -1,0 +1,594 @@
+/* ==========================================
+   Admin Dashboard Styles
+   ========================================== */
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Header */
+.admin-header {
+  margin-bottom: 30px;
+}
+
+.admin-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+
+.admin-subtitle {
+  color: #7f8c8d;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Tabs */
+.admin-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid #ecf0f1;
+  margin-bottom: 30px;
+}
+
+.admin-tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #7f8c8d;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-tab:hover {
+  color: #2c3e50;
+}
+
+.admin-tab--active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+}
+
+/* Loading / Empty States */
+.admin-loading,
+.admin-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+/* ══════════════════════════════════════
+   OVERVIEW — Stat Cards
+   ══════════════════════════════════════ */
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.admin-stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-top: 4px solid #3498db;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #95a5a6;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ══════════════════════════════════════
+   TABLES — Orders & Users
+   ══════════════════════════════════════ */
+
+.admin-table-wrapper {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table thead {
+  background-color: #f8f9fa;
+}
+
+.admin-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #ecf0f1;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f5f5f5;
+  color: #34495e;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Cell specific */
+.order-id-cell {
+  font-weight: 700;
+  color: #3498db;
+}
+
+.user-id-cell {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+
+.total-cell {
+  font-weight: 600;
+  color: #27ae60;
+}
+
+.address-cell {
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-name-cell {
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════
+   ORDERS — Toolbar & Expandable Rows
+   ══════════════════════════════════════ */
+
+.orders-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.orders-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.orders-filter-select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.admin-refresh-btn {
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-refresh-btn:hover {
+  background-color: #2980b9;
+}
+
+.order-expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #7f8c8d;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.order-expand-btn:hover {
+  color: #2c3e50;
+  background-color: #ecf0f1;
+}
+
+.order-row--expanded {
+  background-color: #f0f7ff !important;
+}
+
+.order-detail-row td {
+  padding: 0 !important;
+  border-bottom: 2px solid #3498db;
+}
+
+.order-detail-content {
+  padding: 16px 20px 20px 44px;
+  background-color: #f9fbfd;
+}
+
+.order-detail-heading {
+  font-size: 0.95rem;
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+}
+
+.order-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.order-items-table th {
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #7f8c8d;
+  border-bottom: 1px solid #ecf0f1;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.order-items-table td {
+  padding: 8px 12px;
+  color: #34495e;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.order-detail-empty {
+  color: #95a5a6;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.order-detail-ship {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #34495e;
+  padding: 8px 12px;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid #ecf0f1;
+}
+
+/* Status select dropdown */
+.status-select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  appearance: auto;
+}
+
+.status-select--pending {
+  background-color: #fef5e7;
+  color: #f39c12;
+  border-color: #f5d78e;
+}
+
+.status-select--processing {
+  background-color: #eaf2f8;
+  color: #2980b9;
+  border-color: #aed6f1;
+}
+
+.status-select--shipped {
+  background-color: #ebf5fb;
+  color: #3498db;
+  border-color: #85c1e9;
+}
+
+.status-select--delivered {
+  background-color: #eafaf1;
+  color: #27ae60;
+  border-color: #a9dfbf;
+}
+
+.status-select--cancelled {
+  background-color: #fdf0ef;
+  color: #e74c3c;
+  border-color: #f5b7b1;
+}
+
+/* Role badges */
+.role-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 4px;
+  text-transform: uppercase;
+}
+
+.role-badge--admin {
+  background-color: #fdf0ef;
+  color: #e74c3c;
+}
+
+.role-badge--user {
+  background-color: #eaf2f8;
+  color: #2980b9;
+}
+
+/* Delete button */
+.admin-delete-btn {
+  padding: 6px 14px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-delete-btn:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+.admin-delete-btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-tabs {
+    overflow-x: auto;
+  }
+
+  .admin-tab {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .admin-table {
+    font-size: 0.8rem;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ══════════════════════════════════════
+   PRODUCTS — Section Header & Buttons
+   ══════════════════════════════════════ */
+
+.admin-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.admin-section-title {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin: 0;
+  font-weight: 700;
+}
+
+.admin-add-btn {
+  padding: 10px 20px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-add-btn:hover {
+  background-color: #219a52;
+}
+
+.admin-edit-btn {
+  padding: 6px 14px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.admin-edit-btn:hover {
+  background-color: #2980b9;
+}
+
+.product-actions-cell {
+  white-space: nowrap;
+}
+
+/* ══════════════════════════════════════
+   PRODUCT FORM
+   ══════════════════════════════════════ */
+
+.product-form-wrapper {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin-bottom: 24px;
+  border-left: 4px solid #27ae60;
+}
+
+.product-form-title {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+}
+
+.product-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.product-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-form-group--full {
+  grid-column: 1 / -1;
+}
+
+.product-form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+
+.product-form-group input,
+.product-form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #34495e;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.product-form-group input:focus,
+.product-form-group textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
+}
+
+.product-form-group textarea {
+  resize: vertical;
+}
+
+.product-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.admin-save-btn {
+  padding: 10px 24px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-save-btn:hover {
+  background-color: #219a52;
+}
+
+.admin-cancel-btn {
+  padding: 10px 24px;
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-cancel-btn:hover {
+  background-color: #7f8c8d;
+}
+
+@media (max-width: 768px) {
+  .product-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-section-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
