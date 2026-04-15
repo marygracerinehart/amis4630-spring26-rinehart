@@ -1,20 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 import '../../styles/Header.css';
 
 function Header() {
   const { itemCount } = useCart();
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <header className="header">
       <div className="header-content">
-        <h1 className="header-title">Buckeye Marketplace</h1>
-        <Link to="/cart" className="cart-button">
-          <span className="cart-icon">🛒</span>
-          <span className="cart-label">Cart</span>
-          {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
+        <Link to="/" className="header-title-link">
+          <h1 className="header-title">Buckeye Marketplace</h1>
         </Link>
+        <div className="header-actions">
+          {isAuthenticated ? (
+            <>
+              <span className="header-greeting">Hi, {user?.fullName?.split(' ')[0]}</span>
+              <button className="header-auth-button header-logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="header-auth-button header-login">
+              Login
+            </Link>
+          )}
+          <Link to="/cart" className="cart-button">
+            <span className="cart-icon">🛒</span>
+            <span className="cart-label">Cart</span>
+            {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
+          </Link>
+        </div>
       </div>
     </header>
   );

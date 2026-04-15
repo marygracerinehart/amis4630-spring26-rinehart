@@ -24,6 +24,54 @@
   color: white;
 }
 
+.header-title-link {
+  text-decoration: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-greeting {
+  color: #ecf0f1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.header-auth-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  border: none;
+}
+
+.header-login {
+  background-color: #27ae60;
+  color: white;
+}
+
+.header-login:hover {
+  background-color: #219a52;
+  transform: scale(1.05);
+}
+
+.header-logout {
+  background-color: transparent;
+  color: #ecf0f1;
+  border: 1px solid #ecf0f1;
+}
+
+.header-logout:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
 .cart-button {
   display: flex;
   align-items: center;
