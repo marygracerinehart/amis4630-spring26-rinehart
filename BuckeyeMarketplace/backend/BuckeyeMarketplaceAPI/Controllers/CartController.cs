@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BuckeyeMarketplaceAPI.Data;
@@ -16,18 +18,25 @@ namespace BuckeyeMarketplaceAPI.Controllers
         public int Quantity { get; set; }
     }
 
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CartController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        // Hardcoded user ID — will be replaced with auth in M5
-        private const string HardcodedUserId = "user-1";
-
         public CartController(AppDbContext context)
         {
             _context = context;
+        }
+
+        /// <summary>
+        /// Extracts the authenticated user's ID from the JWT claims.
+        /// </summary>
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier)
+                ?? throw new UnauthorizedAccessException("User ID not found in token.");
         }
 
         /// <summary>
@@ -55,7 +64,8 @@ namespace BuckeyeMarketplaceAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<Cart>> GetCart()
         {
-            var cart = await GetOrCreateCartAsync(HardcodedUserId);
+            var userId = GetUserId();
+            var cart = await GetOrCreateCartAsync(userId);
             return Ok(cart);
         }
 
@@ -89,7 +99,8 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 return BadRequest(new { message = $"Cannot add {request.Quantity} units. Only {product.StockQuantity} available in stock." });
             }
 
-            var cart = await GetOrCreateCartAsync(HardcodedUserId);
+            var userId = GetUserId();
+            var cart = await GetOrCreateCartAsync(userId);
 
             // Check if item already exists in cart
             var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
@@ -179,7 +190,8 @@ namespace BuckeyeMarketplaceAPI.Controllers
         [HttpDelete("clear")]
         public async Task<IActionResult> ClearCart()
         {
-            var cart = await GetOrCreateCartAsync(HardcodedUserId);
+            var userId = GetUserId();
+            var cart = await GetOrCreateCartAsync(userId);
             _context.CartItems.RemoveRange(cart.Items);
             await _context.SaveChangesAsync();
             return Ok(new { message = "Cart cleared." });

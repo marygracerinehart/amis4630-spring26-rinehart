@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BuckeyeMarketplaceAPI.Models;
 
@@ -44,6 +45,7 @@ namespace BuckeyeMarketplaceAPI.Controllers
             return Ok(product);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult<Product> CreateProduct(Product product)
         {
@@ -51,6 +53,7 @@ namespace BuckeyeMarketplaceAPI.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult UpdateProduct(int id, Product product)
         {
@@ -66,6 +69,7 @@ namespace BuckeyeMarketplaceAPI.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
         {

@@ -15,10 +15,13 @@ namespace BuckeyeMarketplaceAPI.Data
         {
             try
             {
-                // Only seed if database is empty
+                // Always seed roles and admin user first (Identity tables may be new)
+                await SeedRolesAndAdminAsync(serviceProvider);
+
+                // Only seed products/carts if database is empty
                 if (context.Products.Any())
                 {
-                    Console.WriteLine("Database already seeded. Skipping.");
+                    Console.WriteLine("Product data already seeded. Skipping.");
                     return;
                 }
 
@@ -210,50 +213,59 @@ namespace BuckeyeMarketplaceAPI.Data
                 await context.SaveChangesAsync();
                 Console.WriteLine($"✓ Seeded test cart with {testCart.Items.Count} items for user 'user-1'");
 
-                // Seed Admin role and admin user
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-
-                const string adminRole = "Admin";
-                const string adminEmail = "admin@buckeyemarketplace.com";
-                const string adminPassword = "Admin123";
-
-                if (!await roleManager.RoleExistsAsync(adminRole))
-                {
-                    await roleManager.CreateAsync(new IdentityRole(adminRole));
-                    Console.WriteLine($"✓ Created '{adminRole}' role");
-                }
-
-                var adminUser = await userManager.FindByEmailAsync(adminEmail);
-                if (adminUser == null)
-                {
-                    adminUser = new ApplicationUser
-                    {
-                        UserName = adminEmail,
-                        Email = adminEmail,
-                        FullName = "Admin User",
-                        EmailConfirmed = true,
-                        CreatedAt = DateTime.UtcNow
-                    };
-
-                    var result = await userManager.CreateAsync(adminUser, adminPassword);
-                    if (result.Succeeded)
-                    {
-                        await userManager.AddToRoleAsync(adminUser, adminRole);
-                        Console.WriteLine($"✓ Seeded admin user: {adminEmail} / {adminPassword}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"✗ Failed to create admin user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-                    }
-                }
-
                 Console.WriteLine("✓ Database seeding completed successfully!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"✗ Error seeding database: {ex.Message}");
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// Seeds roles and admin user — always runs regardless of product data
+        /// </summary>
+        private static async Task SeedRolesAndAdminAsync(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            // Create roles
+            string[] roles = { "Admin", "User" };
+            foreach (var role in roles)
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                    Console.WriteLine($"✓ Created '{role}' role");
+                }
+            }
+
+            const string adminEmail = "admin@buckeyemarketplace.com";
+            const string adminPassword = "Admin123";
+
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    FullName = "Admin User",
+                    EmailConfirmed = true,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                var result = await userManager.CreateAsync(adminUser, adminPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                    Console.WriteLine($"✓ Seeded admin user: {adminEmail} / {adminPassword}");
+                }
+                else
+                {
+                    Console.WriteLine($"✗ Failed to create admin user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
             }
         }
     }

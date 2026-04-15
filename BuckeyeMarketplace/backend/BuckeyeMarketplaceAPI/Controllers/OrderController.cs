@@ -1,0 +1,142 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using BuckeyeMarketplaceAPI.Data;
+using BuckeyeMarketplaceAPI.Models;
+
+namespace BuckeyeMarketplaceAPI.Controllers
+{
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
+    public class OrderController : ControllerBase
+    {
+        private readonly AppDbContext _context;
+
+        public OrderController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        /// <summary>
+        /// Extracts the authenticated user's ID from the JWT claims.
+        /// </summary>
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier)
+                ?? throw new UnauthorizedAccessException("User ID not found in token.");
+        }
+
+        /// <summary>
+        /// POST /api/order — Place an order from the current user's cart.
+        /// Converts all cart items into order items, reduces stock, and clears the cart.
+        /// </summary>
+        [HttpPost]
+        public async Task<ActionResult<Order>> PlaceOrder()
+        {
+            var userId = GetUserId();
+
+            // Load the user's cart with items
+            var cart = await _context.Carts
+                .Include(c => c.Items)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null || !cart.Items.Any())
+            {
+                return BadRequest(new { message = "Your cart is empty. Add items before placing an order." });
+            }
+
+            // Validate stock availability for every item
+            foreach (var cartItem in cart.Items)
+            {
+                var product = await _context.Products.FindAsync(cartItem.ProductId);
+                if (product == null)
+                {
+                    return BadRequest(new { message = $"Product '{cartItem.Title}' (ID {cartItem.ProductId}) no longer exists." });
+                }
+                if (product.StockQuantity < cartItem.Quantity)
+                {
+                    return BadRequest(new { message = $"Insufficient stock for '{product.Title}'. Requested: {cartItem.Quantity}, Available: {product.StockQuantity}." });
+                }
+            }
+
+            // Build the order
+            var order = new Order
+            {
+                UserId = userId,
+                OrderDate = DateTime.UtcNow,
+                Status = "Pending",
+                TotalAmount = 0
+            };
+
+            foreach (var cartItem in cart.Items)
+            {
+                var product = await _context.Products.FindAsync(cartItem.ProductId);
+
+                var orderItem = new OrderItem
+                {
+                    ProductId = cartItem.ProductId,
+                    Quantity = cartItem.Quantity,
+                    Title = cartItem.Title ?? product!.Title ?? "Unknown",
+                    UnitPrice = cartItem.Price,
+                    ImageUrl = cartItem.ImageUrl,
+                    Category = cartItem.Category,
+                    SellerName = cartItem.SellerName
+                };
+
+                order.Items.Add(orderItem);
+                order.TotalAmount += orderItem.UnitPrice * orderItem.Quantity;
+
+                // Reduce stock
+                product!.StockQuantity -= cartItem.Quantity;
+            }
+
+            _context.Orders.Add(order);
+
+            // Clear the cart
+            _context.CartItems.RemoveRange(cart.Items);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
+        }
+
+        /// <summary>
+        /// GET /api/order — Get all orders for the current user.
+        /// </summary>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        {
+            var userId = GetUserId();
+
+            var orders = await _context.Orders
+                .Include(o => o.Items)
+                .Where(o => o.UserId == userId)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+
+            return Ok(orders);
+        }
+
+        /// <summary>
+        /// GET /api/order/{id} — Get a specific order by ID (must belong to the current user).
+        /// </summary>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> GetOrder(int id)
+        {
+            var userId = GetUserId();
+
+            var order = await _context.Orders
+                .Include(o => o.Items)
+                .FirstOrDefaultAsync(o => o.Id == id && o.UserId == userId);
+
+            if (order == null)
+            {
+                return NotFound(new { message = $"Order with ID {id} not found." });
+            }
+
+            return Ok(order);
+        }
+    }
+}

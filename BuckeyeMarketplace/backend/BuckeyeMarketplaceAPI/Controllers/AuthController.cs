@@ -61,6 +61,9 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 return BadRequest(new { message = "Registration failed.", errors });
             }
 
+            // Assign default "User" role
+            await _userManager.AddToRoleAsync(user, "User");
+
             return Ok(await GenerateAuthResponse(user));
         }
 
@@ -146,10 +149,11 @@ namespace BuckeyeMarketplaceAPI.Controllers
 
         private async Task<AuthResponseDto> GenerateAuthResponse(ApplicationUser user)
         {
-            var accessToken = GenerateJwtToken(user);
+            var accessToken = await GenerateJwtToken(user);
             var refreshToken = await GenerateRefreshToken(user.Id);
             var expiration = DateTime.UtcNow.AddMinutes(
                 Convert.ToDouble(_configuration["Jwt:ExpirationInMinutes"]));
+            var roles = await _userManager.GetRolesAsync(user);
 
             return new AuthResponseDto
             {
@@ -158,11 +162,12 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 Expiration = expiration,
                 UserId = user.Id,
                 Email = user.Email!,
-                FullName = user.FullName ?? string.Empty
+                FullName = user.FullName ?? string.Empty,
+                Roles = roles.ToList()
             };
         }
 
-        private string GenerateJwtToken(ApplicationUser user)
+        private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var jwtKey = _configuration["Jwt:Key"]
                 ?? throw new InvalidOperationException("JWT Key is not configured.");
@@ -173,13 +178,20 @@ namespace BuckeyeMarketplaceAPI.Controllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            // Build claims including roles
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("fullName", user.FullName ?? string.Empty)
             };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var token = new JwtSecurityToken(
                 issuer: jwtIssuer,
