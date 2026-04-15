@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Seeded Admin Credentials
+
+The database is seeded on startup with an admin user for testing:
+
+| Field    | Value                            |
+| -------- | -------------------------------- |
+| Email    | `admin@buckeyemarketplace.com`   |
+| Password | `Admin123`                       |
+| Role     | `Admin`                          |
+
 ## Available Scripts
 
 In the project directory, you can run:
