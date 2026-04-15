@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
 import LoginForm from '../components/molecules/LoginForm';
@@ -99,6 +99,15 @@ function Login() {
             serverError={serverError}
           />
         )}
+
+        <div className="login-footer">
+          <p className="login-footer-text">
+            Don't have an account?{' '}
+            <Link to="/register" className="login-footer-link">
+              Register here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

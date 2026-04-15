@@ -158,3 +158,29 @@
     font-size: 1.4rem;
   }
 }
+
+/* Footer - Register link */
+.login-footer {
+  margin-top: 24px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.login-footer-text {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.login-footer-link {
+  color: #e74c3c;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.login-footer-link:hover {
+  color: #c0392b;
+  text-decoration: underline;
+}

@@ -29,9 +29,14 @@ function Header() {
               </button>
             </>
           ) : (
-            <Link to="/login" className="header-auth-button header-login">
-              Login
-            </Link>
+            <>
+              <Link to="/login" className="header-auth-button header-login">
+                Login
+              </Link>
+              <Link to="/register" className="header-auth-button header-register">
+                Register
+              </Link>
+            </>
           )}
           <Link to="/cart" className="cart-button">
             <span className="cart-icon">🛒</span>
