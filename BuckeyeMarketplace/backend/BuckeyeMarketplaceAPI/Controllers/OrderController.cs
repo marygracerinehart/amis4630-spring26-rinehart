@@ -67,38 +67,17 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 }
             }
 
-            // Build the order
-            var order = new Order
-            {
-                UserId = userId,
-                OrderDate = DateTime.UtcNow,
-                Status = "Pending",
-                TotalAmount = 0,
-                ShippingAddress = dto.ShippingAddress.Trim()
-            };
+            // Build the order from cart using the mapper
+            var mapper = new CartToOrderMapper();
+            var order = mapper.Map(cart, dto.ShippingAddress);
+            order.UserId = userId;   // ensure the authenticated user owns the order
 
+            // Reduce stock for each item
             foreach (var cartItem in cart.Items)
             {
                 var product = await _context.Products.FindAsync(cartItem.ProductId);
-
-                var orderItem = new OrderItem
-                {
-                    ProductId = cartItem.ProductId,
-                    Quantity = cartItem.Quantity,
-                    Title = cartItem.Title ?? product!.Title ?? "Unknown",
-                    UnitPrice = cartItem.Price,
-                    ImageUrl = cartItem.ImageUrl,
-                    Category = cartItem.Category,
-                    SellerName = cartItem.SellerName
-                };
-
-                order.Items.Add(orderItem);
-
-                // Reduce stock
                 product!.StockQuantity -= cartItem.Quantity;
             }
-
-            order.TotalAmount = order.CalculateTotal();
 
             _context.Orders.Add(order);
 
