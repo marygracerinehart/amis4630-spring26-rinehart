@@ -4,6 +4,10 @@ AMIS 4630 Buckeye Marketplace Project
 # Buckeye Marketplace
 A marketplace web application for Ohio State students, staff, fans, and parents to buy and sell items.
 
+#Admin Credentials
+Email	admin@buckeyemarketplace.com
+Password	Admin123
+
 ## How to Run
 #.NET API
 1. Open terminal and navigate to BuckeyeMarketplace API through backend folder -  cd /Users/marygracerinehart/amis4630-spring26-rinehart/BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI
