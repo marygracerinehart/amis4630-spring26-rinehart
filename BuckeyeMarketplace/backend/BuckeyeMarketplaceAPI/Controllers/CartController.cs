@@ -139,7 +139,9 @@ namespace BuckeyeMarketplaceAPI.Controllers
                 return BadRequest(new { message = "Quantity must be greater than zero." });
             }
 
-            var item = await _context.CartItems.FindAsync(cartItemId);
+            var userId = GetUserId();
+            var item = await _context.CartItems
+                .FirstOrDefaultAsync(ci => ci.Id == cartItemId && ci.Cart.UserId == userId);
 
             if (item == null)
             {
@@ -172,7 +174,9 @@ namespace BuckeyeMarketplaceAPI.Controllers
         [HttpDelete("{cartItemId}")]
         public async Task<IActionResult> RemoveCartItem(int cartItemId)
         {
-            var item = await _context.CartItems.FindAsync(cartItemId);
+            var userId = GetUserId();
+            var item = await _context.CartItems
+                .FirstOrDefaultAsync(ci => ci.Id == cartItemId && ci.Cart.UserId == userId);
 
             if (item == null)
             {
