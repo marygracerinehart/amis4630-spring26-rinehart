@@ -170,7 +170,8 @@ namespace BuckeyeMarketplaceAPI.Controllers
         private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var jwtKey = _configuration["Jwt:Key"]
-                ?? throw new InvalidOperationException("JWT Key is not configured.");
+                ?? throw new InvalidOperationException(
+                    "JWT Key is not configured. Run: dotnet user-secrets set \"Jwt:Key\" \"<your-256-bit-secret>\"");
             var jwtIssuer = _configuration["Jwt:Issuer"];
             var jwtAudience = _configuration["Jwt:Audience"];
             var expMinutes = Convert.ToDouble(_configuration["Jwt:ExpirationInMinutes"]);
@@ -231,7 +232,8 @@ namespace BuckeyeMarketplaceAPI.Controllers
         private ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
         {
             var jwtKey = _configuration["Jwt:Key"]
-                ?? throw new InvalidOperationException("JWT Key is not configured.");
+                ?? throw new InvalidOperationException(
+                    "JWT Key is not configured. Run: dotnet user-secrets set \"Jwt:Key\" \"<your-256-bit-secret>\"");
 
             var tokenValidationParameters = new TokenValidationParameters
             {

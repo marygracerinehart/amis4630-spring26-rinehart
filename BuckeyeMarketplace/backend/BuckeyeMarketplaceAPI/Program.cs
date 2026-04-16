@@ -20,8 +20,11 @@ builder.Services.AddCors(options =>
 });
 
 // Add Entity Framework with SQLite
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "DefaultConnection is not configured. Run: dotnet user-secrets set \"ConnectionStrings:DefaultConnection\" \"Data Source=BuckeyeMarketplace.db\"");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(connectionString));
 
 // Add ASP.NET Core Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -41,7 +44,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 // Add JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"]
-    ?? throw new InvalidOperationException("JWT Key is not configured in appsettings.");
+    ?? throw new InvalidOperationException(
+        "JWT Key is not configured. Run: dotnet user-secrets set \"Jwt:Key\" \"<your-256-bit-secret>\"");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
 
@@ -93,6 +97,38 @@ using (var scope = app.Services.CreateScope())
 
 // Use CORS
 app.UseCors("AllowAll");
+
+// ── Security Headers ────────────────────────────────────────────────
+app.Use(async (context, next) =>
+{
+    var headers = context.Response.Headers;
+
+    // Prevent MIME-type sniffing
+    headers["X-Content-Type-Options"] = "nosniff";
+
+    // Block clickjacking — only allow same-origin framing
+    headers["X-Frame-Options"] = "DENY";
+
+    // Opt out of the legacy XSS auditor (modern browsers ignore it;
+    // setting to "0" avoids unexpected filter side-effects)
+    headers["X-XSS-Protection"] = "0";
+
+    // Only send the origin as the referrer to cross-origin requests
+    headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+
+    // Restrict browser features the API doesn't need
+    headers["Permissions-Policy"] =
+        "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()";
+
+    // Content-Security-Policy — this is a pure API, so lock everything down
+    headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'";
+
+    // Prevent caching of authenticated responses
+    headers["Cache-Control"] = "no-store";
+    headers["Pragma"] = "no-cache";
+
+    await next();
+});
 
 // Always enable Swagger
 app.UseSwagger();
