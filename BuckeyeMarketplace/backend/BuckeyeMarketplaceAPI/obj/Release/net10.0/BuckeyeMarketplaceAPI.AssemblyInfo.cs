@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BuckeyeMarketplaceAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9def01aa56a93c5e6c01fa0637fdc9711f554bd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c97cf2c3ff8ceab24003ffafa8d03d0db41f613")]
 [assembly: System.Reflection.AssemblyProductAttribute("BuckeyeMarketplaceAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BuckeyeMarketplaceAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

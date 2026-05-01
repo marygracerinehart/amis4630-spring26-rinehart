@@ -143,8 +143,8 @@ app.Use(async (context, next) =>
     headers["Permissions-Policy"] =
         "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), usb=()";
 
-    // Content-Security-Policy — this is a pure API, so lock everything down
-    headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'";
+    // Content-Security-Policy — frame-ancestors only; no default-src to avoid blocking API consumers
+    headers["Content-Security-Policy"] = "frame-ancestors 'none'";
 
     // Prevent caching of authenticated responses
     headers["Cache-Control"] = "no-store";
