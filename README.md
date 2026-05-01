@@ -47,3 +47,4 @@ create another page for each product so that when you click on a product it show
 - Debugged connection issues between frontend and backend
 - added image urls
 - used own judgement going back in fourth with github co pilot on different styling things including size of card and image
+# Trigger CI/CD

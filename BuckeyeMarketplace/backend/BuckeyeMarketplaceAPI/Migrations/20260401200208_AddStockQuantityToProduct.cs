@@ -83,15 +83,15 @@ namespace BuckeyeMarketplaceAPI.Migrations
                 columns: new[] { "Id", "Category", "Description", "ImageUrl", "PostedDate", "Price", "SellerName", "StockQuantity", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Textbooks", "Comprehensive textbook for IS fundamentals", "https://m.media-amazon.com/images/I/61wDhC8nNGL._AC_UF1000,1000_QL80_.jpg", new DateTime(2026, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 89.99m, "John Smith", 10, "Introduction to Information Systems textbook" },
-                    { 2, "Apparel", "Official Ohio State University sweatshirt", "", new DateTime(2026, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 34.99m, "Emma Johnson", 10, "Ohio State Sweatshirt - Medium" },
-                    { 3, "Textbooks", "Advanced organic chemistry reference", "", new DateTime(2026, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 129.99m, "Alex Martinez", 10, "Organic Chemistry Textbook" },
-                    { 4, "Electronics", "LED desk lamp with adjustable brightness", "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRQDvUa6IAUeyY01b9MIIP3a8rZcNZQq-kVNR0ylUQpERW9KsT7UtDHQD5Hab91d8Q-JZGCopcfrnPiXptjLaRR2qXx1KHXM5RnAbyR-nYfEB7r_4Hyhxt0rA", new DateTime(2026, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 24.99m, "Sarah Lee", 10, "Desk Lamp" },
-                    { 5, "Apparel", "Warm winter coat with waterproof exterior", "", new DateTime(2026, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 99.99m, "Michael Brown", 10, "Winter Coat" },
-                    { 6, "Electronics", "55-inch 4K Smart TV", "", new DateTime(2026, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 399.99m, "David Wilson", 10, "TV" },
-                    { 7, "Appliances", "Compact mini fridge for dorm or office", "", new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 79.99m, "Jessica Garcia", 10, "Mini Refrigerator" },
-                    { 8, "Apparel", "Official Ohio State University jacket", "", new DateTime(2026, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 64.99m, "Christopher Davis", 10, "Ohio State Jacket" },
-                    { 9, "Home Decor", "Large wall mirror with wooden frame", "", new DateTime(2026, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 44.99m, "Amanda Rodriguez", 10, "Mirror" }
+                    { 1, "Textbooks", "Comprehensive textbook for IS fundamentals", "https://m.media-amazon.com/images/I/61wDhC8nNGL._AC_UF1000,1000_QL80_.jpg", "2026-02-15T00:00:00", 89.99m, "John Smith", 10, "Introduction to Information Systems textbook" },
+                    { 2, "Apparel", "Official Ohio State University sweatshirt", "", "2026-02-20T00:00:00", 34.99m, "Emma Johnson", 10, "Ohio State Sweatshirt - Medium" },
+                    { 3, "Textbooks", "Advanced organic chemistry reference", "", "2026-02-18T00:00:00", 129.99m, "Alex Martinez", 10, "Organic Chemistry Textbook" },
+                    { 4, "Electronics", "LED desk lamp with adjustable brightness", "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRQDvUa6IAUeyY01b9MIIP3a8rZcNZQq-kVNR0ylUQpERW9KsT7UtDHQD5Hab91d8Q-JZGCopcfrnPiXptjLaRR2qXx1KHXM5RnAbyR-nYfEB7r_4Hyhxt0rA", "2026-02-25T00:00:00", 24.99m, "Sarah Lee", 10, "Desk Lamp" },
+                    { 5, "Apparel", "Warm winter coat with waterproof exterior", "", "2026-02-22T00:00:00", 99.99m, "Michael Brown", 10, "Winter Coat" },
+                    { 6, "Electronics", "55-inch 4K Smart TV", "", "2026-02-28T00:00:00", 399.99m, "David Wilson", 10, "TV" },
+                    { 7, "Appliances", "Compact mini fridge for dorm or office", "", "2026-03-01T00:00:00", 79.99m, "Jessica Garcia", 10, "Mini Refrigerator" },
+                    { 8, "Apparel", "Official Ohio State University jacket", "", "2026-02-26T00:00:00", 64.99m, "Christopher Davis", 10, "Ohio State Jacket" },
+                    { 9, "Home Decor", "Large wall mirror with wooden frame", "", "2026-03-02T00:00:00", 44.99m, "Amanda Rodriguez", 10, "Mirror" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/bf028b9b-0e2b-46de-8b2a-8d059cabc638/resourceGroups/rg-buckeye-marketplace/providers/Microsoft.Web/sites/ndw38rn3iu",
+    "appService.deploySubpath": "."
+}
