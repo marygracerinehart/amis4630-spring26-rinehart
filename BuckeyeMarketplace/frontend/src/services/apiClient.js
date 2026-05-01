@@ -1,6 +1,10 @@
 import { getStoredAuth, saveAuthData, clearAuthData } from './authService';
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5107';
+const BASE_URL =
+  process.env.REACT_APP_API_URL?.trim() ||
+  (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:5107'
+    : '');
 
 /**
  * API Client - Centralized fetch wrapper with automatic token injection

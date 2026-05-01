@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useNotification } from '../context/NotificationContext';
 import '../styles/ProductDetail.css';
+import { fetchProductById } from '../services/productService';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -16,12 +17,7 @@ function ProductDetail() {
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5107';
-      const response = await fetch(`${apiUrl}/api/products/${id}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch product');
-      }
-      const data = await response.json();
+      const data = await fetchProductById(id);
       setProduct(data);
       setError(null);
     } catch (err) {

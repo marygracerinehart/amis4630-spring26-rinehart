@@ -1,4 +1,9 @@
-const API_BASE_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5107'}/api/auth`;
+const API_BASE_URL = `${
+  process.env.REACT_APP_API_URL?.trim() ||
+  (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:5107'
+    : '')
+}/api/auth`;
 
 /**
  * Auth Service - Handles all authentication-related API calls
