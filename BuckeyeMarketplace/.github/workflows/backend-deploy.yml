@@ -20,17 +20,17 @@ jobs:
         dotnet-version: '10.0.x'
     
     - name: Restore dependencies
-      run: dotnet restore backend/BuckeyeMarketplaceAPI/BuckeyeMarketplaceAPI.csproj
+      run: dotnet restore BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI/BuckeyeMarketplaceAPI.csproj
     
     - name: Build backend
-      run: dotnet build backend/BuckeyeMarketplaceAPI/BuckeyeMarketplaceAPI.csproj --configuration Release --no-restore
+      run: dotnet build BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI/BuckeyeMarketplaceAPI.csproj --configuration Release --no-restore
     
     - name: Run backend tests
-      run: dotnet test backend/BuckeyeMarketplaceAPI.Tests/BuckeyeMarketplaceAPI.Tests.csproj --configuration Release --no-build --verbosity normal
+      run: dotnet test BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI.Tests/BuckeyeMarketplaceAPI.Tests.csproj --configuration Release --no-build --verbosity normal
       continue-on-error: true
     
     - name: Publish backend
-      run: dotnet publish backend/BuckeyeMarketplaceAPI/BuckeyeMarketplaceAPI.csproj -c Release -o backend/publish
+      run: dotnet publish BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI/BuckeyeMarketplaceAPI.csproj -c Release -o BuckeyeMarketplace/backend/publish
 
   deploy-to-azure:
     needs: build-and-test
@@ -47,13 +47,11 @@ jobs:
         dotnet-version: '10.0.x'
     
     - name: Build for deployment
-      run: |
-        cd backend/BuckeyeMarketplaceAPI
-        dotnet publish -c Release -o ../publish-release
+      run: dotnet publish BuckeyeMarketplace/backend/BuckeyeMarketplaceAPI/BuckeyeMarketplaceAPI.csproj -c Release -o BuckeyeMarketplace/backend/publish-release
     
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'ndw38rn3iu'
         publish-profile: ${{ secrets.AZURE_BACKEND_PUBLISH_PROFILE }}
-        package: backend/publish-release
+        package: BuckeyeMarketplace/backend/publish-release
