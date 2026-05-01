@@ -18,14 +18,13 @@ builder.Services.AddCors(options =>
     {
         if (string.IsNullOrEmpty(frontendUrl))
         {
-            // Production fallback: allow all (configure FrontendUrl in App Service settings)
-            corsBuilder.AllowAnyOrigin()
+            corsBuilder.SetIsOriginAllowed(_ => true)
                        .AllowAnyMethod()
-                       .AllowAnyHeader();
+                       .AllowAnyHeader()
+                       .AllowCredentials();
         }
         else
         {
-            // Development or configured: allow specific origin with credentials
             corsBuilder.WithOrigins(frontendUrl)
                        .AllowAnyMethod()
                        .AllowAnyHeader()
@@ -91,13 +90,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Enforce HTTPS in production
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHsts();      // Add Strict-Transport-Security header
-    app.UseHttpsRedirection();  // Redirect HTTP to HTTPS
-}
-
 // Apply migrations and seed database
 using (var scope = app.Services.CreateScope())
 {
@@ -117,8 +109,15 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Use CORS
+// Use CORS - must be before auth and after routing
 app.UseCors("AllowAll");
+
+// Enforce HTTPS in production
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+    app.UseHttpsRedirection();
+}
 
 // ── Security Headers ────────────────────────────────────────────────
 // CI/CD Pipeline: Automatic deployment enabled
