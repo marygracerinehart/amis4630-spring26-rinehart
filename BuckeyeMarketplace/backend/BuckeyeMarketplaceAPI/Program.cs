@@ -8,23 +8,38 @@ using BuckeyeMarketplaceAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add CORS
+// Add CORS with production security
+var frontendUrl = builder.Configuration["FrontendUrl"]
+    ?? (builder.Environment.IsDevelopment() ? "http://localhost:3000" : null);
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowAll", corsBuilder =>
     {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
+        if (string.IsNullOrEmpty(frontendUrl))
+        {
+            // Production fallback: allow all (configure FrontendUrl in App Service settings)
+            corsBuilder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+        }
+        else
+        {
+            // Development or configured: allow specific origin with credentials
+            corsBuilder.WithOrigins(frontendUrl)
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials();
+        }
     });
 });
 
-// Add Entity Framework with SQLite
+// Add Entity Framework with Azure SQL (SQL Server)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException(
-        "DefaultConnection is not configured. Run: dotnet user-secrets set \"ConnectionStrings:DefaultConnection\" \"Data Source=BuckeyeMarketplace.db\"");
+        "DefaultConnection is not configured. Run: dotnet user-secrets set \"ConnectionStrings:DefaultConnection\" \"Server=tcp:<server>.database.windows.net,1433;Initial Catalog=<database>;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;\"");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(connectionString));
+    options.UseSqlServer(connectionString));
 
 // Add ASP.NET Core Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -76,6 +91,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Enforce HTTPS in production
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();      // Add Strict-Transport-Security header
+    app.UseHttpsRedirection();  // Redirect HTTP to HTTPS
+}
+
 // Apply migrations and seed database
 using (var scope = app.Services.CreateScope())
 {
@@ -99,6 +121,7 @@ using (var scope = app.Services.CreateScope())
 app.UseCors("AllowAll");
 
 // ── Security Headers ────────────────────────────────────────────────
+// CI/CD Pipeline: Automatic deployment enabled
 app.Use(async (context, next) =>
 {
     var headers = context.Response.Headers;
