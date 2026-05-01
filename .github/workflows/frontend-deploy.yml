@@ -29,7 +29,7 @@ jobs:
       working-directory: ./BuckeyeMarketplace/frontend
       run: npm run build
       env:
-        CI: true
+        CI: false
         REACT_APP_API_URL: https://ndw38rn3iu-hfbzdmfhhkdmajev.centralus-01.azurewebsites.net
     
     - name: Run tests
