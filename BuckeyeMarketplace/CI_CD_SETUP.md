@@ -175,3 +175,10 @@ All configuration from App Service settings (no env vars in workflow)
 ```
 
 Done! Both frontend and backend now auto-deploy on every push to main! 🎉
+
+---
+
+## ✅ Workflows Active & Ready
+- GitHub Secrets configured: `AZURE_BACKEND_PUBLISH_PROFILE`, `AZURE_FRONTEND_PUBLISH_PROFILE`
+- Workflows will automatically trigger on push to main
+- Deployment Status: Ready for testing
